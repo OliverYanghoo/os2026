@@ -1,0 +1,19 @@
++ cc kern/mm/best_fit_pmm.c
+kern/mm/best_fit_pmm.c: In function 'basic_check':
+kern/mm/best_fit_pmm.c:24:36: error: 'free_list' undeclared (first use in this function)
+   24 |     list_entry_t free_list_store = free_list;
+      |                                    ^~~~~~~~~
+kern/mm/best_fit_pmm.c:24:36: note: each undeclared identifier is reported only once for each function it appears in
+kern/mm/best_fit_pmm.c:28:34: error: 'nr_free' undeclared (first use in this function)
+   28 |     unsigned int nr_free_store = nr_free;
+      |                                  ^~~~~~~
+kern/mm/best_fit_pmm.c: In function 'best_fit_check':
+kern/mm/best_fit_pmm.c:64:25: error: 'free_list' undeclared (first use in this function)
+   64 |     list_entry_t *le = &free_list;
+      |                         ^~~~~~~~~
+kern/mm/best_fit_pmm.c:95:34: error: 'nr_free' undeclared (first use in this function)
+   95 |     unsigned int nr_free_store = nr_free;
+      |                                  ^~~~~~~
+make: *** [Makefile:116: obj/kern/mm/best_fit_pmm.o] Error 1
+
+Exit status: 2

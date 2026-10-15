@@ -1,0 +1,15 @@
+PASS 00: default 128 MiB and supplied page-init test
+PASS 01: smaller 8 MiB and supplied page-init test
+PASS 02: 256 MiB report clamped to framework limit
+PASS 03: unaligned memory end rounded down
+PASS 04: zero memory size rejected
+PASS 05: zero memory base rejected
+PASS 06: 64-bit memory-range overflow rejected
+PASS 07: memory below DRAM rejected
+PASS 08: memory range excluding kernel rejected
+PASS 09: memory too short for kernel rejected
+PASS 10: insufficient descriptor space rejected before writes
+PASS 11: descriptors fit but no full free page: no callback
+PASS 12: non-default DRAM start leaves preceding pages reserved
+All 13 isolated page_init checks passed; logs: /home/lhl/os2026-lab2/code/obj/check-page-init
+Fixtures supply DTB getter results and allocator callbacks; full kernel, DTB parsing and other allocators are not tested.

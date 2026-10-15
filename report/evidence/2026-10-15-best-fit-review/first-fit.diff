@@ -1,0 +1,10 @@
+--- baseline/best_fit_pmm.c
++++ first-fit/best_fit_pmm.c
+@@ -81,6 +81,7 @@
+         if (p->property >= n &&
+             (best == NULL || p->property < best->property)) {
+             best = p;
++            break;
+         }
+     }
+     if (best != NULL) {

@@ -1,0 +1,4 @@
+PASS -O0: framework checks, edge cases, 512 bitmap-oracle operations
+PASS -O2: framework checks, edge cases, 512 bitmap-oracle operations
+All Best-Fit checks passed; logs: /home/lhl/os2026/lab2/code/obj/check-best-fit
+Boot, UART and DTB getters are fixtures; production entry/SBI/DTB parsing and full-kernel boot are not covered.

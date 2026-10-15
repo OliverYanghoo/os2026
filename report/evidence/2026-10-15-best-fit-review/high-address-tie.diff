@@ -1,0 +1,11 @@
+--- baseline/best_fit_pmm.c
++++ high-address-tie/best_fit_pmm.c
+@@ -79,7 +79,7 @@
+         struct Page *p = le2page(le, page_link);
+         /* Strict comparison keeps the lower-address block on a size tie. */
+         if (p->property >= n &&
+-            (best == NULL || p->property < best->property)) {
++            (best == NULL || p->property <= best->property)) {
+             best = p;
+         }
+     }

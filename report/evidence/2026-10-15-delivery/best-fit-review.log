@@ -1,0 +1,5 @@
+PASS baseline: unchanged tests passed at -O0 and -O2
+PASS negative control: first-fit rejected by unchanged tests (-O0)
+PASS negative control: high-address-tie rejected by unchanged tests (-O0)
+PASS source/test preservation; logs: /home/lhl/os2026-lab2/code/obj/check-best-fit-review
+These are isolated allocator tests; full production boot is not checked.

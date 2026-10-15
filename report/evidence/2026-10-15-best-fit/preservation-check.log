@@ -1,0 +1,9 @@
+PASS: basic_check and best_fit_check byte-for-byte unchanged
+SHA-256: b6c6f8cd0608f21e2710f19ce23847f74c36b68d67dea90e8eef9faacdc9022a
+PASS: unchanged kern/mm/default_pmm.c
+PASS: unchanged kern/init/entry.S
+PASS: unchanged libs/sbi.c
+PASS: unchanged tools/test_lab2.c
+PASS: unchanged tools/test_lab2.h
+PASS: unchanged tools/inject.py
+PASS: unchanged tools/grade.sh
