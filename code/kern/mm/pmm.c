@@ -1,5 +1,8 @@
 #include <default_pmm.h>
 #include <best_fit_pmm.h>
+#ifdef USE_BUDDY_PMM
+#include <buddy_pmm.h>
+#endif
 #include <defs.h>
 #include <error.h>
 #include <memlayout.h>
@@ -34,7 +37,11 @@ static void check_alloc_page(void);
 
 // init_pmm_manager - initialize a pmm_manager instance
 static void init_pmm_manager(void) {
+#ifdef USE_BUDDY_PMM
+    pmm_manager = &buddy_pmm_manager;
+#else
     pmm_manager = &best_fit_pmm_manager;
+#endif
     cprintf("memory management: %s\n", pmm_manager->name);
     pmm_manager->init();
 }

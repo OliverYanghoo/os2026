@@ -35,6 +35,13 @@ CFLAGS	+= -fno-builtin -Wall -O2 -nostdinc $(DEFS)
 CFLAGS	+= -fno-stack-protector -ffunction-sections -fdata-sections
 CFLAGS	+= -g
 CFLAGS2 = $(CFLAGS) -D ucore_test
+
+# Stage B: buddy system allocator. Build with USE_BUDDY_PMM=1 to switch
+# the physical memory manager; the default build stays on best-fit.
+ifdef USE_BUDDY_PMM
+CFLAGS += -DUSE_BUDDY_PMM
+endif
+
 CTYPE	:= c S
 LD      := $(GCCPREFIX)ld
 LDFLAGS	:= -m elf64lriscv
