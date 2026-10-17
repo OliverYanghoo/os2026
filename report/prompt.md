@@ -354,3 +354,29 @@ extract_memory_info 使用头部偏移定位结构块和字符串块，依次解
 - [U-Boot 内存 bank 与保留区管理](https://docs.u-boot-project.org/en/stable/develop/memory.html)
 
 本轮仅补充实际提示词及解释记录，没有修改源代码、测试、Makefile 或实验报告正文，没有 Git 提交或推送。
+
+## 08：正式启动取指缺页定位与 entry.S 恒等映射修复
+
+- 日期：2026-10-17。
+- 对应任务：阶段 A 的启动和构建相关问题（使内核能够真正启动并进入 `pmm_init()`）。
+- 本轮范围：定位正式启动缺页原因并修复入口页表；本轮不做真机验证。
+
+### 实际提问
+
+```text
+正式内核 make qemu 启动失败，GDB 读到 scause=0xc、stval=0x80200000。
+结合 entry.S 和隔离测试入口 tests/page_init_boot.S 定位缺页原因，
+按隔离入口已验证的方式修复正式入口的启动页表，不要改动其他代码。
+```
+
+### 定位结论
+
+GDB 现场显示 `satp` 已切到 Sv39 且指向内核内的启动页表，缺页地址正是内核加载地址 `0x80200000`：`csrw satp` 之后、`jr` 跳转到高地址之前，CPU 仍在低位物理地址上取指，而 `boot_page_table_sv39` 只映射了 `0xffffffffc0000000` 高地址，缺少低位恒等映射，触发取指页缺页，内核进不了 `pmm_init()`。`make grade` 走的正是真实启动路径并检查串口输出，该问题不修复则无法通过评分。
+
+### 修复方式
+
+与 `tests/page_init_boot.S` 中已被隔离检查验证的做法一致：在 `entry.S` 的 `boot_page_table_sv39` 中增加第 3 个页表项，将 VA `0x80000000` 映射到 PA `0x80000000`（1GiB 超级页，标志 `0xcf`），页表总大小仍为 4KiB；同时删除 `entry.S` 中遗留的调试注释。控制台输出经 SBI 完成，不需要 UART MMIO 映射，因此不追加 VA 0 恒等映射。
+
+### 验证状态
+
+本轮未在真机编译验证（本机无 RISC-V 工具链）。代码与报告已提交，待 Linux 服务器上执行 `make clean && make`、QEMU 启动和 `make grade` 后补充实际结果。
